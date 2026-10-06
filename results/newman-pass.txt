@@ -1,0 +1,198 @@
+(node:8441) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+newman
+
+Lab05
+
+❏ T01 Happy path -> OK
+↳ оюутан T01
+  PUT http://localhost:3000/students/T01_stu [200 OK, 178B, 46ms]
+  ✓  Setup оюутан T01: статус 200
+
+↳ хичээл T01
+  PUT http://localhost:3000/courses/T01_crs [200 OK, 178B, 5ms]
+  ✓  Setup хичээл T01: статус 200
+
+↳ POST /registrations
+  POST http://localhost:3000/registrations [201 Created, 202B, 3ms]
+  ✓  Happy path: статус 201
+  ✓  Happy path: result=OK
+  ✓  Happy path: registrationID тоо байна
+
+❏ T02 Оюутан байхгүй -> ERROR_NO_STUDENT
+↳ хичээл T02
+  PUT http://localhost:3000/courses/T02_crs [200 OK, 178B, 4ms]
+  ✓  Setup хичээл T02: статус 200
+
+↳ POST /registrations
+  POST http://localhost:3000/registrations [200 OK, 192B, 4ms]
+  ✓  Оюутан байхгүй: статус 200
+  ✓  Оюутан байхгүй: result=ERROR_NO_STUDENT
+
+❏ T03 Идэвхгүй оюутан -> ERROR_INACTIVE_STUDENT
+↳ оюутан T03
+  PUT http://localhost:3000/students/T03_stu [200 OK, 178B, 4ms]
+  ✓  Setup оюутан T03: статус 200
+
+↳ хичээл T03
+  PUT http://localhost:3000/courses/T03_crs [200 OK, 178B, 4ms]
+  ✓  Setup хичээл T03: статус 200
+
+↳ POST /registrations
+  POST http://localhost:3000/registrations [200 OK, 198B, 5ms]
+  ✓  Идэвхгүй оюутан: статус 200
+  ✓  Идэвхгүй оюутан: result=ERROR_INACTIVE_STUDENT
+
+❏ T04 Хичээл байхгүй -> ERROR_NO_COURSE
+↳ оюутан T04
+  PUT http://localhost:3000/students/T04_stu [200 OK, 178B, 7ms]
+  ✓  Setup оюутан T04: статус 200
+
+↳ POST /registrations
+  POST http://localhost:3000/registrations [200 OK, 191B, 7ms]
+  ✓  Хичээл байхгүй: статус 200
+  ✓  Хичээл байхгүй: result=ERROR_NO_COURSE
+
+❏ T05 Урьдач огт үзээгүй -> ERROR_PREREQUISITES
+↳ оюутан T05
+  PUT http://localhost:3000/students/T05_stu [200 OK, 178B, 2ms]
+  ✓  Setup оюутан T05: статус 200
+
+↳ хичээл T05
+  PUT http://localhost:3000/courses/T05_crs [200 OK, 178B, 4ms]
+  ✓  Setup хичээл T05: статус 200
+
+↳ POST /registrations
+  POST http://localhost:3000/registrations [200 OK, 215B, 4ms]
+  ✓  Урьдач огт үзээгүй: статус 200
+  ✓  Урьдач огт үзээгүй: result=ERROR_PREREQUISITES
+  ✓  Урьдач огт үзээгүй: missing=[CS201]
+
+❏ T06 Урьдач зарим нь дутуу -> ERROR_PREREQUISITES
+↳ оюутан T06
+  PUT http://localhost:3000/students/T06_stu [200 OK, 178B, 4ms]
+  ✓  Setup оюутан T06: статус 200
+
+↳ хичээл T06
+  PUT http://localhost:3000/courses/T06_crs [200 OK, 178B, 3ms]
+  ✓  Setup хичээл T06: статус 200
+
+↳ POST /registrations
+  POST http://localhost:3000/registrations [200 OK, 215B, 2ms]
+  ✓  Урьдач зарим нь дутуу: статус 200
+  ✓  Урьдач зарим нь дутуу: result=ERROR_PREREQUISITES
+  ✓  Урьдач зарим нь дутуу: missing=[CS202]
+
+❏ T07 Урьдачгүй хичээл -> OK
+↳ оюутан T07
+  PUT http://localhost:3000/students/T07_stu [200 OK, 178B, 3ms]
+  ✓  Setup оюутан T07: статус 200
+
+↳ хичээл T07
+  PUT http://localhost:3000/courses/T07_crs [200 OK, 178B, 3ms]
+  ✓  Setup хичээл T07: статус 200
+
+↳ POST /registrations
+  POST http://localhost:3000/registrations [201 Created, 202B, 3ms]
+  ✓  Урьдачгүй хичээл: статус 201
+  ✓  Урьдачгүй хичээл: result=OK
+
+❏ T08 courseID дутуу -> ERROR_BAD_REQUEST
+↳ POST /registrations
+  POST http://localhost:3000/registrations [400 Bad Request, 202B, 3ms]
+  ✓  courseID дутуу: статус 400
+  ✓  courseID дутуу: result=ERROR_BAD_REQUEST
+
+❏ T09 studentID дутуу -> ERROR_BAD_REQUEST
+↳ POST /registrations
+  POST http://localhost:3000/registrations [400 Bad Request, 202B, 3ms]
+  ✓  studentID дутуу: статус 400
+  ✓  studentID дутуу: result=ERROR_BAD_REQUEST
+
+❏ T10 Буруу JSON -> ERROR_BAD_JSON
+↳ POST /registrations
+  POST http://localhost:3000/registrations [400 Bad Request, 199B, 4ms]
+  ✓  Буруу JSON: статус 400
+  ✓  Буруу JSON: result=ERROR_BAD_JSON
+
+❏ T11 Оюутан ч хичээл ч байхгүй -> ERROR_NO_STUDENT
+↳ POST /registrations
+  POST http://localhost:3000/registrations [200 OK, 192B, 4ms]
+  ✓  Оюутан+хичээл байхгүй: статус 200
+  ✓  Оюутан+хичээл байхгүй: result=ERROR_NO_STUDENT
+
+❏ T12 Идэвхгүй оюутан + хичээл байхгүй -> ERROR_INACTIVE_STUDENT
+↳ оюутан T12
+  PUT http://localhost:3000/students/T12_stu [200 OK, 178B, 4ms]
+  ✓  Setup оюутан T12: статус 200
+
+↳ POST /registrations
+  POST http://localhost:3000/registrations [200 OK, 198B, 3ms]
+  ✓  Идэвхгүй+хичээл байхгүй: статус 200
+  ✓  Идэвхгүй+хичээл байхгүй: result=ERROR_INACTIVE_STUDENT
+
+❏ T13 Идэвхгүй оюутан + урьдач дутуу -> ERROR_INACTIVE_STUDENT
+↳ оюутан T13
+  PUT http://localhost:3000/students/T13_stu [200 OK, 178B, 4ms]
+  ✓  Setup оюутан T13: статус 200
+
+↳ хичээл T13
+  PUT http://localhost:3000/courses/T13_crs [200 OK, 178B, 3ms]
+  ✓  Setup хичээл T13: статус 200
+
+↳ POST /registrations
+  POST http://localhost:3000/registrations [200 OK, 198B, 4ms]
+  ✓  Идэвхгүй+урьдач дутуу: статус 200
+  ✓  Идэвхгүй+урьдач дутуу: result=ERROR_INACTIVE_STUDENT
+
+❏ T14 GET /courses/:id -> 200 ба 404
+↳ хичээл T14
+  PUT http://localhost:3000/courses/T14_crs [200 OK, 178B, 2ms]
+  ✓  Setup хичээл T14: статус 200
+
+↳ GET /courses/T14_crs
+  GET http://localhost:3000/courses/T14_crs [200 OK, 211B, 3ms]
+  ✓  GET хичээл: статус 200
+  ✓  GET хичээл: prerequisites=[CS201]
+
+↳ GET /courses/T14_nocourse
+  GET http://localhost:3000/courses/T14_nocourse [404 Not Found, 198B, 3ms]
+  ✓  GET байхгүй хичээл: статус 404
+
+❏ T15 Амжилттай бүртгэл GET /registrations-д орно
+↳ оюутан T15
+  PUT http://localhost:3000/students/T15_stu [200 OK, 178B, 2ms]
+  ✓  Setup оюутан T15: статус 200
+
+↳ хичээл T15
+  PUT http://localhost:3000/courses/T15_crs [200 OK, 178B, 3ms]
+  ✓  Setup хичээл T15: статус 200
+
+↳ POST /registrations
+  POST http://localhost:3000/registrations [201 Created, 202B, 4ms]
+  ✓  Бүртгэл: статус 201
+
+↳ GET /registrations
+  GET http://localhost:3000/registrations [200 OK, 356B, 4ms]
+  ✓  GET бүртгэлүүд: статус 200 ба массив
+  ✓  GET бүртгэлүүд: T15 бүртгэл жагсаалтад байна
+
+┌─────────────────────────┬─────────────────┬─────────────────┐
+│                         │        executed │          failed │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              iterations │               1 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│                requests │              35 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│            test-scripts │              35 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│      prerequest-scripts │               0 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              assertions │              53 │               0 │
+├─────────────────────────┴─────────────────┴─────────────────┤
+│ total run duration: 846ms                                   │
+├─────────────────────────────────────────────────────────────┤
+│ total data received: 1.02kB (approx)                        │
+├─────────────────────────────────────────────────────────────┤
+│ average response time: 4ms [min: 2ms, max: 46ms, s.d.: 7ms] │
+└─────────────────────────────────────────────────────────────┘
